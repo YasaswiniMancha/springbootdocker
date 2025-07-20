@@ -1,0 +1,85 @@
+DOCKER Fundamentals
+
+What is Docker?
+Docker is a tool that helps you:
+•	Package your application along with everything it needs (code, libraries, runtime, etc.)
+•	Into a container, which runs consistently anywhere – on your laptop, server, or cloud.
+Think of Docker as a virtual shipping container — it wraps your app and its environment into one portable unit.
+Docker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers package an application with its dependencies (code, libraries, configurations, etc.) into a single, lightweight, portable unit that runs consistently across different environments, such as development, testing, or production.
+A toolset that simplifies creating, deploying, and running containers using simple commands and configurations.
+Why Do Developers Use Docker?
+Without Docker:
+•	You say: “It works on my machine!” 😅
+•	But your teammate or the production server has different settings → app breaks ❌
+With Docker:
+•	You bundle the same environment across all systems → No surprises ✅
+
+Key Components of Docker
+•  Docker Engine:
+•	The core runtime that manages containers.
+•	Includes:
+o	Docker Daemon: A background service that manages images, containers, networks, and storage.
+o	REST API: Allows interaction with the daemon programmatically.
+o	Docker CLI: Command-line interface for users to interact with Docker.
+•  Docker Images:
+•	Read-only templates containing the application, libraries, and dependencies.
+•	Built using a Dockerfile, which specifies instructions to create the image.
+•	Stored in registries like Docker Hub or private registries.
+•  Docker Containers:
+•	Runnable instances of Docker images.
+•	Isolated environments that execute applications.
+•	Can be started, stopped, moved, or deleted.
+•  Dockerfile:
+•	A script with instructions to build a Docker image (e.g., base image, dependencies, commands to run).
+•  Docker Hub/Registries:
+•	Repositories for storing and sharing Docker images.
+•	Docker Hub is the default public registry, but private registries can be used.
+•  Docker Compose:
+•	A tool for defining and running multi-container applications using a YAML file. Ex: docker-compose.yml
+•  Docker Networking:
+•	Manages communication between containers and the host or external networks.
+•	Types: Bridge (default), Host, Overlay (for multi-host), etc.
+•  Docker Volumes:
+•	Persistent storage for containers to store data outside their lifecycle.
+•	Ensures data persists even if a container is deleted.
+
+In docker-compose.yml file and paste as followed in this application.
+
+In applications.properties file paste and paste as followed in this application.
+
+NOW
+1. create a Dockerfile with the same name at the root of app and paste as followed in this application.
+2. Build the image - docker build -t appName .
+3. Run the container - docker run -p 8081:8081 appName
+
+Real-World Example (Spring Boot App)
+1.	Write your Spring Boot app.
+2.	Create a Dockerfile.
+3.	Build and run the image.
+4.	Connect it to a Dockerized DB.
+5.	Deploy anywhere — local, AWS, GCP, Azure, etc.
+
+
+Steps and commands to set-up docker for both application and database:
+•	We have a Spring Boot project built with Maven or Gradle. But make sure that we have C:\Program Files\common\apache-maven-3.9.8\bin  in environmental variables as MAVEN_HOME  in system variables and also path(check mvn -v in cmd for clarification).
+•	By running this command in terminal at the root of the project in IDE, we can create .jar file in spring boot application. G:\Imp_Docs\sts-workspace\ appName > mvn clean package(clean-> deletes old build files, package-> compiles code and creates .jar file). If the build is successful, you'll see a message like: BUILD SUCCESS and
+•	This will create something like this in target folder of our application: target/ appName -0.0.1-SNAPSHOT.jar.
+•	Before dockerizing, run the jar normally in IDE(IntelliJ) to test ,by clicking options on .jar file. If it runs without errors and starts on port 8080, you’re ready for Docker!
+•	Then through the terminal run docker-compose up --build (note: first start docker engine and then run the command.
+•	We could be able to see that the container and images are created/build in docker using the command.
+•	To remove/stop the containers, we use the command docker-compose down & to Stop and   remove all containers and volumes  docker-compose down -v
+•	We need to run mvn clean package whenever we make modifications in the code / db to make sure that .jar file is updated and see build is success. Now run docker-compose up --build
+•	To see all the logs of the container docker logs <container_name> ,
+•	To see which images of the containers are up and running docker-compose ps and docker ps -a to view all containers including stopped.
+•	To remove all unused containers -> G:\Imp_Docs\sts-workspace\springbootdocker> docker system prune  and docker rmi <image_id>  and to remove an image docker stop app db and docker rm app db
+•	docker network rm my-network to remove networks that are no longer needed.
+•	docker push <your_image_name>  is to push images to a registry like: AWS ECR, docker hub, Google Cloud Run, or Kubernetes. Ex: docker push my-username/my-app:latest and docker push my-username/my-db:pgsql
+•	etc., and  docker images to see what are the images there in the docker engine.
+
+
+
+
+
+
+
+
