@@ -37,8 +37,6 @@ pipeline {
                     sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
                     sh "docker push ${DOCKER_IMAGE_APP}:${env.BUILD_ID}"
                     sh "docker push ${DOCKER_IMAGE_DB1}:${env.BUILD_ID}"
-                    sh "docker push ${DOCKER_IMAGE_DB2}:${env.BUILD_ID}"
-                    sh "docker push ${DOCKER_IMAGE_DB3}:${env.BUILD_ID}"
                 }
             }
         }
